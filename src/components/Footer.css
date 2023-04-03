@@ -1,0 +1,38 @@
+.footer-container-fluid {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #302e2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-container-fluid p {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+}
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+ 
+  

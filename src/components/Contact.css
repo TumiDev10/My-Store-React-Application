@@ -1,0 +1,32 @@
+.contact-page-container {
+    border: 1px solid rgb(252, 250, 250);
+    background-color: white;
+  }
+  
+  .ContactUs {
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin-bottom: -19px;
+  }
+  
+  .contact-form {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+    padding-top: 11%;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    border-radius: 0;
+  }
+  
+  .contact-info {
+    color: black;
+  }  
