@@ -12,9 +12,21 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // TODO: Add login logic here
-    navigate('/home');
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find((u) => u.email === email && u.password === password);
+    if (user) {
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      console.log('Navigating to home page');
+      navigate('/Home');
+    } else {
+      alert('Invalid email or password');
+    }
   };
+  
+  
+  
 
+  
   return (
     <div className="form-container"> {/* Add a container div */}
       <h1>Login</h1>

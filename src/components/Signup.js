@@ -13,7 +13,16 @@ function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // TODO: Add registration logic here
-    navigate('/home');
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = { email, password };
+    if (users.some((u) => u.email === email && u.password === password)) {
+      alert('Email already registered');
+    } else {
+      users.push(user);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      navigate('/');
+    }
   };
 
   return (
@@ -43,7 +52,7 @@ function Signup() {
         <Button variant="primary" type="submit">
           Sign up
         </Button>
-        <p>Already have an account? <Link to="/login">Log in</Link></p>
+        <p>Already have an account? <Link to="/Login">Log in</Link></p>
       </Form>
     </div>
   );

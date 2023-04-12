@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Products.css';
+import { Link } from 'react-router-dom';
+import Cart from './Cart';
 
 function Products() {
   const [error, setError] = useState(null);
@@ -8,8 +10,24 @@ function Products() {
   const [cart, setCart] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [selectedFilter, setSelectedFilter] = useState(null);
+  const [showCart, setShowCart] = useState(false);
+
+  
+
+  const handleProceedToCheckout = () => {
+    setShowCart(true);
+  };
 
   useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+    const storedQuantities = localStorage.getItem('quantities');
+    if (storedQuantities) {
+      setQuantities(JSON.parse(storedQuantities));
+    }
+    
     fetch("https://dummyjson.com/product")
       .then(response => response.json())
       .then(
@@ -25,26 +43,37 @@ function Products() {
   }, []);
 
   const handleAddToCart = (product) => {
-    if (quantities[product.id]) {
-      setQuantities({ ...quantities, [product.id]: quantities[product.id] + 1 });
-    } else {
-      setQuantities({ ...quantities, [product.id]: 1 });
-      setCart([...cart, product]);
-    }
-  }
-
+    setCart((currentCart) => {
+      const quantity = quantities[product.id] || 0;
+      if (quantity) {
+        setQuantities({ ...quantities, [product.id]: quantity + 1 });
+        return currentCart.map(item => item.id === product.id ? { ...item, quantity: quantity + 1 } : item);
+      } else {
+        setQuantities({ ...quantities, [product.id]: 1 });
+        return [...currentCart, { ...product, quantity: 1 }];
+      }
+    });
+    localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: 1 }]));
+  };
+  
+  
   const handleRemoveFromCart = (productId) => {
-    if (quantities[productId] > 1) {
-      setQuantities({ ...quantities, [productId]: quantities[productId] - 1 });
+    const quantity = quantities[productId];
+    if (quantity > 1) {
+      setQuantities({ ...quantities, [productId]: quantity - 1 });
+      setCart(cart.map(item => item.id === productId ? { ...item, quantity: quantity - 1 } : item));
     } else {
       const newCart = cart.filter(item => item.id !== productId);
-      setCart(newCart);
       const newQuantities = { ...quantities };
       delete newQuantities[productId];
+      setCart(newCart);
       setQuantities(newQuantities);
+      localStorage.setItem('quantities', JSON.stringify(newQuantities));
     }
-  }
-
+    localStorage.setItem('cart', JSON.stringify(cart));
+  };
+  
+  
   const filterProducts = (filterType) => {
     switch(filterType) {
       case 'all':
@@ -58,7 +87,7 @@ function Products() {
       default:
         return products;
     }
-  }
+  };
 
   const filteredProducts = filterProducts(selectedFilter);
 
@@ -69,8 +98,22 @@ function Products() {
   } else {
     return (    
       <div className="container-fluid">
-      <div className="choose-device-container">
-        <h4>Choose Your Device:</h4>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+         
+
+          <Link className="navbar-brand" to="/">My Shop</Link>
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+            <Link className="nav-link" to="/">Products</Link>
+          </li>
+        </ul>
+        <button onClick={handleProceedToCheckout}>Proceed to Checkout</button>
+        {showCart && <Cart cart={cart} />}
+        
+         
+      </nav>
+        <div className="choose-device-container">
+          <h4>Choose Your Device:</h4>
         </div>
         <div className="row"> 
           <div className="col-lg-3 col-md-4">
@@ -136,6 +179,8 @@ function Products() {
                      <div className="quantity-controls">
                       <button className="quantity-btn" onClick={() => handleRemoveFromCart(product.id)}>Remove</button>
                    </div>
+
+                   
                     )} 
                   </div>
                 </div>

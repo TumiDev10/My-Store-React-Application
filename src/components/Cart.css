@@ -1,0 +1,34 @@
+.cart-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .cart-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .cart-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .cart-container table th {
+    text-align: left;
+    padding: 10px;
+    background-color: #f2f2f2;
+    font-weight: normal;
+  }
+  
+  .cart-container table td {
+    vertical-align: middle;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-container table td:first-child {
+    width: 100%;
+  }
+  
