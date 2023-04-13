@@ -133,7 +133,7 @@ const ContactUs = () => {
         <input type="address" name="user_address" required />
         <label>Message</label>
         <textarea name="message" required />
-        <button type="submit">Send</button>
+        <button className="btn_send" type="submit">Send</button>
       </form>
     </div>
   );

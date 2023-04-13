@@ -88,6 +88,7 @@ function Products() {
         return products;
     }
   };
+  
 
   const filteredProducts = filterProducts(selectedFilter);
 
@@ -98,6 +99,7 @@ function Products() {
   } else {
     return (    
       <div className="container-fluid">
+        
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
          
 
@@ -147,12 +149,15 @@ function Products() {
           </div>
           <div className="col-md-9">
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+              
               {filteredProducts.map((product) => (
+                
                 <div className="col" key={product.id}>
                   <div className="card h-100">
                     <img className="card-img-top" src={product.thumbnail} alt="Card cap" />
                     <div className="card-body">
-                      <h5 className="card-title">{product.title}</h5>
+                      
+                      <h5 className="card-title">{product.title }</h5>
                       <p className="card-text">{product.description}</p>
                       <div className="row">
                         <div className="col">

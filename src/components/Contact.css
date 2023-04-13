@@ -52,3 +52,8 @@
 .contact-container textarea:valid {
   border-color: green;
 }
+
+.btn_send{
+  width: 100%;
+  padding: 10px;
+}
