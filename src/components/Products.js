@@ -144,9 +144,6 @@ function Products() {
           case 'AOA':
           currencySymbol = 'Kz';
           break;
-          case 'AUD':
-          currencySymbol = 'R';
-          break;
           case 'AWG':
           currencySymbol = 'ƒ';
           break;

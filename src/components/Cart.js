@@ -51,9 +51,9 @@ function Cart({ cart, handleRemoveFromCart }) {
               {filteredCart.map((item) => (
                 <tr key={item.id}>
                   <td>{item.title}</td>
-                  <td>{item.price}</td>
+                  <td>{(item.price * item.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                   <td>{item.quantity}</td>
-                  <td>{item.price * item.quantity}</td>
+                  <td>{(item.price * item.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                   {/* <td>
                     <button onClick={() => handleRemove(item.id)}>Remove</button>
                     
