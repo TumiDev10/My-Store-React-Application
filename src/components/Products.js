@@ -111,28 +111,409 @@ function Products() {
     }
   
     filtered = filtered.map(product => {
-      let currencySymbol;
-      if (selectedCurrency === 'ZAR') {
-        currencySymbol = 'R';
-      } else {
-        currencySymbol = {
-          USD: '$',
-          EUR: '€',
-          GBP: '£',
-          JPY: '¥',
-        }[selectedCurrency];
-      }
       const convertedPrice = product.price * currencyRates[selectedCurrency];
+      let currencySymbol;
+      switch (selectedCurrency) {
+        case 'USD':
+          currencySymbol = '$';
+          break;
+        case 'EUR':
+          currencySymbol = '€';
+          break;
+        case 'GBP':
+          currencySymbol = '£';
+          break;
+        case 'JPY':
+          currencySymbol = '¥';
+          break;
+        case 'ZAR':
+          currencySymbol = 'R';
+          break;
+          case 'AED':
+          currencySymbol = '‏د.إ‎ ';
+          break;
+          case 'AFN':
+          currencySymbol = '؋';
+          break;
+          case 'ALL':
+          currencySymbol = 'Lek';
+          break;
+          case 'AMD':
+          currencySymbol = '֏';
+          break;
+          case 'AOA':
+          currencySymbol = 'Kz';
+          break;
+          case 'AUD':
+          currencySymbol = 'R';
+          break;
+          case 'AWG':
+          currencySymbol = 'ƒ';
+          break;
+          case 'AZN':
+          currencySymbol = '₼';
+          break;
+          case 'BAM':
+          currencySymbol = 'KM';
+          break;
+          case 'BDT':
+          currencySymbol = '৳‎';
+          break;
+          case 'BGN':
+          currencySymbol = 'лв';
+          break;
+          case 'BHD':
+          currencySymbol = '.د.ب';
+          break;
+          case 'BIF':
+          currencySymbol = 'FBu‎';
+          break;
+          case 'BOB':
+          currencySymbol = '$b';
+          break;
+          case 'BRL':
+          currencySymbol = 'R$';
+          break;
+          case 'BTC':
+          currencySymbol = 'BTC';
+          break;
+          case 'BTN':
+          currencySymbol = 'Nu.‎';
+          break;
+          case 'BWP':
+          currencySymbol = 'P';
+          break;
+          case 'BYN':
+          currencySymbol = 'Br';
+          break;
+          case 'BZD':
+          currencySymbol = 'BZ$';
+          break;
+          case 'CDF':
+          currencySymbol = 'FC';
+          break;
+          case 'CNY':
+          currencySymbol = '¥';
+          break;
+          case 'CRC':
+          currencySymbol = '₡';
+          break;
+          case 'CUP':
+          currencySymbol = '₱';
+          break;
+          case 'CZK':
+          currencySymbol = 'Kč‎';
+          break;
+          case 'DKK':
+          currencySymbol = 'kr';
+          break;
+          case 'DOP':
+          currencySymbol = 'RD$';
+          break;
+          case 'DZD':
+          currencySymbol = 'دج‎';
+          break;
+          case 'EGP':
+          currencySymbol = '£';
+          break;
+          case 'ERN':
+          currencySymbol = 'ناكفا';
+          break;
+          case 'ETB':
+          currencySymbol = 'ብር';
+          break;
+          case 'FKP':
+          currencySymbol = '£';
+          break;
+          case 'GBP':
+          currencySymbol = '£';
+          break;
+          case 'GEL':
+          currencySymbol = 'ლ';
+          break;
+          case 'GGP':
+          currencySymbol = '£';
+          break;
+          case 'GHS':
+          currencySymbol = '¢';
+          break;
+          case 'GIP':
+          currencySymbol = '£';
+          break;
+          case 'GMD':
+          currencySymbol = 'D‎';
+          break;
+          case 'GNF':
+          currencySymbol = 'FG';
+          break;
+          case 'GTQ':
+          currencySymbol = 'Q';
+          break;
+          case 'HNL':
+          currencySymbol = 'L';
+          break;
+          case 'HRK':
+          currencySymbol = 'kn‎';
+          break;
+          case 'HTG':
+          currencySymbol = 'G';
+          break;
+          case 'HUF':
+          currencySymbol = 'Ft';
+          break;
+          case 'IDR':
+          currencySymbol = 'Rp';
+          break;
+          case 'ILS':
+          currencySymbol = '₪';
+          break;
+          case 'IMP':
+          currencySymbol = '£';
+          break;
+          case 'IQD':
+          currencySymbol = 'د.ع';
+          break;
+          case 'IRR':
+          currencySymbol = '﷼';
+          break;
+          case 'ISK':
+          currencySymbol = 'kr‎';
+          break;
+          case 'JEP':
+          currencySymbol = '£';
+          break;
+          case 'JMD':
+          currencySymbol = 'J$';
+          break;
+          case 'KGS':
+          currencySymbol = 'лв';
+          break;
+          case 'KPW':
+          currencySymbol = '₩';
+          break;
+          case 'KRW':
+          currencySymbol = '₩';
+          break;
+          case 'KZT':
+          currencySymbol = 'лв';
+          break;
+          case 'LAK':
+          currencySymbol = '₭';
+          break;
+          case 'ZAR':
+          currencySymbol = 'R';
+          break;
+          case 'LBP':
+          currencySymbol = '£';
+          break;
+          case 'LKR':
+          currencySymbol = 'රු';
+          break;
+          case 'LSL':
+          currencySymbol = 'L‎';
+          break;
+          case 'LYD':
+          currencySymbol = 'ل.د';
+          break;
+          case 'MAD':
+          currencySymbol = 'DH‎';
+          break;
+          case 'MDL':
+          currencySymbol = 'L';
+          break;
+          case 'MGA':
+          currencySymbol = 'Ar‎';
+          break;
+          case 'MKD':
+          currencySymbol = 'ден';
+          break;
+          case 'MNT':
+          currencySymbol = '₮';
+          break;
+          case 'MRU':
+          currencySymbol = 'UM‎';
+          break;
+          case 'MUR':
+          currencySymbol = '₨';
+          break;
+          case 'MVR':
+          currencySymbol = '.ރ';
+          break;
+          case 'MWK':
+          currencySymbol = 'K';
+          break;
+          case 'MYR':
+          currencySymbol = 'RM';
+          break;
+          case 'MZN':
+          currencySymbol = 'MT';
+          break;
+          case 'NGN':
+          currencySymbol = '₦';
+          break;
+          case 'NIO':
+          currencySymbol = 'C$';
+          break;
+          case 'NOK':
+          currencySymbol = 'kr';
+          break;
+          case 'NPR':
+          currencySymbol = '₨';
+          break;
+          case 'OMR':
+          currencySymbol = '﷼';
+          break;
+          case 'PAB':
+          currencySymbol = 'B/.';
+          break;
+          case 'PEN':
+          currencySymbol = 'S/.';
+          break;
+          case 'PGK':
+          currencySymbol = 'K‎';
+          break;
+          case 'PHP':
+          currencySymbol = '₱';
+          break;
+          case 'PKR':
+          currencySymbol = '₨';
+          break;
+          case 'PLN':
+          currencySymbol = 'zł';
+          break;
+          case 'PYG':
+          currencySymbol = 'Gs';
+          break;
+          case 'QAR':
+          currencySymbol = '﷼R';
+          break;
+          case 'RON':
+          currencySymbol = 'lei';
+          break;
+          case 'RSD':
+          currencySymbol = 'Дин.';
+          break;
+          case 'RUB':
+          currencySymbol = '₽';
+          break;
+          case 'RWF':
+          currencySymbol = 'R₣‎';
+          break;
+          case 'SAR':
+          currencySymbol = '﷼';
+          break;
+          case 'SCR':
+          currencySymbol = '₨';
+          break;
+          case 'SEK':
+          currencySymbol = 'kr';
+          break;
+          case 'SHP':
+          currencySymbol = '£';
+          break;
+          case 'SLL':
+          currencySymbol = 'Le‎';
+          break;
+          case 'SOS':
+          currencySymbol = 'S';
+          break;
+          case 'SSP':
+          currencySymbol = 'SS£';
+          break;
+          case 'STD':
+          currencySymbol = '£';
+          break;
+          case 'STN':
+          currencySymbol = 'STN';
+          break;
+          case 'SVC':
+          currencySymbol = '₡‎';
+          break;
+          case 'SYP':
+          currencySymbol = '£';
+          break;
+          case 'SZL':
+          currencySymbol = 'L';
+          break;
+          case 'THB':
+          currencySymbol = '฿';
+          break;
+          case 'TJS':
+          currencySymbol = 'SM‎';
+          break;
+          case 'TMT':
+          currencySymbol = 'TMT';
+          break;
+          case 'TND':
+          currencySymbol = 'د.ت‎';
+          break;
+          case 'TRY':
+          currencySymbol = '₤';
+          break;
+          case 'TTD':
+          currencySymbol = 'TT$';
+          break;
+          case 'TWD':
+          currencySymbol = 'NT$';
+          break;
+          case 'UAH':
+          currencySymbol = '₴';
+          break;
+          case 'UYU':
+          currencySymbol = '$U';
+          break;
+          case 'UZS':
+          currencySymbol = 'лв';
+          break;
+          case 'VES':
+          currencySymbol = 'Bs.';
+          break;
+          case 'VND':
+          currencySymbol = '₫';
+          break;
+          case 'VUV':
+          currencySymbol = 'VT‎';
+          break;
+          case 'XAF':
+          currencySymbol = 'F.CFA‎';
+          break;
+          case 'XAU':
+          currencySymbol = 'XAU';
+          break;
+          case 'XCD':
+          currencySymbol = 'EC$‎';
+          break;
+          case 'XDR':
+          currencySymbol = 'SDR‎';
+          break;
+          case 'XOF':
+          currencySymbol = 'F.CFA‎';
+          break;
+          case 'XPF':
+          currencySymbol = 'F';
+          break;
+          case 'YER':
+          currencySymbol = '﷼';
+          break;
+          case 'ZMW':
+          currencySymbol = 'ZK';
+          break;
+        default:
+          currencySymbol = '$';
+          break;
+      }
       return {
         ...product,
         price: convertedPrice,
         formattedPrice: `${currencySymbol}${convertedPrice.toFixed(2)}`,
-        currencySymbol,
+        formattedPrice2: `${currencySymbol}${(1.2 * convertedPrice.toFixed(2)).toFixed(2)}`,
+        currencySymbol,         
       };
     });
   
     return filtered;
   };
+  
   
 
   const filteredProducts = filterProducts(selectedFilter);
@@ -146,12 +527,7 @@ function Products() {
       <div className="container-fluid">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="search-bar">
-  <       input type="text" placeholder="Search for products" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-  <select value={selectedCurrency} onChange={e => setSelectedCurrency(e.target.value)}>
-    {Object.keys(currencyRates).map(currency => (
-      <option key={currency} value={currency}>{currency}</option>
-    ))}
-  </select>
+        <input type="text" placeholder="Search for products" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         </div>
           <Link className="navbar-brand" to="/">My Shop</Link>
           <ul className="navbar-nav mr-auto">
@@ -201,7 +577,9 @@ function Products() {
               {filteredProducts.map((product) => (
                 <div className="col" key={product.id}>
                   <div className="card h-100">
+                    
                     <img className="card-img-top" src={product.thumbnail} alt="Card cap" />
+                    
                     <div className="card-body">
                       <h5 className="card-title">{product.title }</h5>
                       <p className="card-text">{product.description}</p>
@@ -209,19 +587,26 @@ function Products() {
                         <div className="col">
                           <div className="price1">
                             <div className="was">Was</div>
-                            <div className="was-price">${(product.price * 1.2).toFixed(2)}</div>
+                            <div className="was-price">{product.formattedPrice2}</div>
                           </div>
                         </div>
                         <div className="col">
                           <div className="price2">
                             <div className="now">Now</div>
-                            <div className="now-price">${product.price.toFixed(2)}</div>
+                            <div className="now-price">{product.formattedPrice}</div>
                           </div>
+                          
                         </div>
                       </div>
-
+                      
                 </div>
+                
                 <div className="card-footer">
+                  <select value={selectedCurrency} onChange={e => setSelectedCurrency(e.target.value)}>
+                  {Object.keys(currencyRates).map(currency => (
+                  <option key={currency} value={currency}>{currency}</option>
+                  ))}
+                  </select>
                   <div className="add-to-cart">
                     <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>
                       <i className="fas fa-shopping-cart"></i> Add to cart ({quantities[product.id] || 0})
@@ -230,7 +615,6 @@ function Products() {
                      <div className="quantity-controls">
                       <button className="quantity-btn" onClick={() => handleRemoveFromCart(product.id)}>Remove</button>
                    </div>
-
                    
                     )} 
                   </div>
