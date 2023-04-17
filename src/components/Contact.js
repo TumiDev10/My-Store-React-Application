@@ -105,16 +105,20 @@ import './Contact.css';
 const ContactUs = () => {
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     emailjs.sendForm('service_bhnf2vv', 'template_2x7grdm', form.current, '00K5M65piKs1K3q8S')
       .then((result) => {
           console.log(result.text);
           setIsSent(true);
+          setIsLoading(false);
       }, (error) => {
           console.log(error.text);
+          setIsLoading(false);
       });
   };
 
@@ -122,6 +126,7 @@ const ContactUs = () => {
     <div className="contact-container">
       <h2>Contact Us</h2>
       {isSent && <p>Your message has been sent!</p>}
+      {isLoading && <p>Sending email...</p>}
       <form ref={form} onSubmit={sendEmail}>
         <label>Name</label>
         <input type="text" name="user_name" required />

@@ -11,6 +11,7 @@ function Products() {
   const [quantities, setQuantities] = useState({});
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [showCart, setShowCart] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   
 
@@ -28,7 +29,7 @@ function Products() {
       setQuantities(JSON.parse(storedQuantities));
     }
     
-    fetch("https://dummyjson.com/product")
+    fetch("    ")
       .then(response => response.json())
       .then(
         (result) => {
@@ -75,19 +76,34 @@ function Products() {
   
   
   const filterProducts = (filterType) => {
+    let filtered = products;
+  
+    // Apply price filter
     switch(filterType) {
       case 'all':
-        return products;
+        break;
       case 'under20':
-        return products.filter((product) => product.price < 20);
+        filtered = filtered.filter((product) => product.price < 20);
+        break;
       case 'under90':
-        return products.filter((product) => product.price >= 20 && product.price < 90);
+        filtered = filtered.filter((product) => product.price >= 20 && product.price < 90);
+        break;
       case 'over100':
-        return products.filter((product) => product.price >= 100 && product.price < 2000);
+        filtered = filtered.filter((product) => product.price >= 100 && product.price < 2000);
+        break;
       default:
-        return products;
+        break;
     }
+  
+    // Apply search filter
+    if (searchQuery) {
+      const regex = new RegExp(searchQuery, 'gi');
+      filtered = filtered.filter((product) => product.name.match(regex) || (product.description && product.description.match(regex)));
+    }
+  
+    return filtered;
   };
+  
   
 
   const filteredProducts = filterProducts(selectedFilter);
@@ -99,9 +115,12 @@ function Products() {
   } else {
     return (    
       <div className="container-fluid">
-        
+          
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-         
+        <div className="search-bar">
+  <       input type="text" placeholder="Search for products" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+        </div>
+
 
           <Link className="navbar-brand" to="/">My Shop</Link>
           <ul className="navbar-nav mr-auto">
