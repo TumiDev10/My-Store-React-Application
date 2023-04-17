@@ -12,8 +12,8 @@ function Products() {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [showCart, setShowCart] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  
+  const [currencyRates, setCurrencyRates] = useState({});
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
 
   const handleProceedToCheckout = () => {
     setShowCart(true);
@@ -28,8 +28,8 @@ function Products() {
     if (storedQuantities) {
       setQuantities(JSON.parse(storedQuantities));
     }
-    
-    fetch("    ")
+
+    fetch("https://dummyjson.com/product")
       .then(response => response.json())
       .then(
         (result) => {
@@ -40,7 +40,18 @@ function Products() {
           setIsLoaded(true);
           setError(error);
         }
-      )
+      );
+
+    fetch("https://api.exchangerate.host/latest?base=USD")
+      .then(response => response.json())
+      .then(
+        (result) => {
+          setCurrencyRates(result.rates);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }, []);
 
   const handleAddToCart = (product) => {
@@ -56,8 +67,7 @@ function Products() {
     });
     localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity: 1 }]));
   };
-  
-  
+
   const handleRemoveFromCart = (productId) => {
     const quantity = quantities[productId];
     if (quantity > 1) {
@@ -73,8 +83,7 @@ function Products() {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
   };
-  
-  
+
   const filterProducts = (filterType) => {
     let filtered = products;
   
@@ -101,9 +110,29 @@ function Products() {
       filtered = filtered.filter((product) => product.name.match(regex) || (product.description && product.description.match(regex)));
     }
   
+    filtered = filtered.map(product => {
+      let currencySymbol;
+      if (selectedCurrency === 'ZAR') {
+        currencySymbol = 'R';
+      } else {
+        currencySymbol = {
+          USD: '$',
+          EUR: '€',
+          GBP: '£',
+          JPY: '¥',
+        }[selectedCurrency];
+      }
+      const convertedPrice = product.price * currencyRates[selectedCurrency];
+      return {
+        ...product,
+        price: convertedPrice,
+        formattedPrice: `${currencySymbol}${convertedPrice.toFixed(2)}`,
+        currencySymbol,
+      };
+    });
+  
     return filtered;
   };
-  
   
 
   const filteredProducts = filterProducts(selectedFilter);
@@ -115,13 +144,15 @@ function Products() {
   } else {
     return (    
       <div className="container-fluid">
-          
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="search-bar">
   <       input type="text" placeholder="Search for products" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+  <select value={selectedCurrency} onChange={e => setSelectedCurrency(e.target.value)}>
+    {Object.keys(currencyRates).map(currency => (
+      <option key={currency} value={currency}>{currency}</option>
+    ))}
+  </select>
         </div>
-
-
           <Link className="navbar-brand" to="/">My Shop</Link>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -129,9 +160,7 @@ function Products() {
           </li>
         </ul>
         <button onClick={handleProceedToCheckout}>Proceed to Checkout</button>
-        {showCart && <Cart cart={cart} />}
-        
-         
+        {showCart && <Cart cart={cart} currencyRates={currencyRates} />}
       </nav>
         <div className="choose-device-container">
           <h4>Choose Your Device:</h4>
@@ -170,12 +199,10 @@ function Products() {
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
               
               {filteredProducts.map((product) => (
-                
                 <div className="col" key={product.id}>
                   <div className="card h-100">
                     <img className="card-img-top" src={product.thumbnail} alt="Card cap" />
                     <div className="card-body">
-                      
                       <h5 className="card-title">{product.title }</h5>
                       <p className="card-text">{product.description}</p>
                       <div className="row">
@@ -219,6 +246,7 @@ function Products() {
         
     );
               }
+            
             }
             
             

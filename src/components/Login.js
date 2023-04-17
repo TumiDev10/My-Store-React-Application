@@ -23,10 +23,7 @@ function Login() {
     }
   };
   
-  
-  
 
-  
   return (
     <div className="form-container"> {/* Add a container div */}
       <h1>Login</h1>

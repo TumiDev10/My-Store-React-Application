@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import './Cart.css';
 
-function Cart({ cart, handleRemoveFromCart, handleProceedToCheckout }) {
+function Cart({ cart, handleRemoveFromCart }) {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // TODO: Implement checkout logic
   };
 
-  const handleRemove = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
-    handleRemoveFromCart(updatedCart);
-  };
+  // const handleRemove = (id) => {
+  //   const updatedCart = cart.filter((item) => item.id !== id);
+  //   handleRemoveFromCart(updatedCart);
+  // };
 
   // Remove duplicates and items with quantity of 0 or NaN
   const filteredCart = cart.reduce((acc, item) => {
