@@ -1,5 +1,5 @@
 # My-Store-React-Application
-This is a web application built using React that allows users to browse and purchase products from the ACME Inc. online store.
+This is a web application built using React that allows users to browse and purchase products from the My Store online store.
 
 Installation
 To install this application, you will need to have Node.js and npm (Node Package Manager) installed on your machine. You can download Node.js from the official website here.
@@ -13,7 +13,7 @@ Run npm start to start the development server.
 Usage
 Once the development server is running, you can view the application by opening a web browser and navigating to http://localhost:3000. The home page of the application will be displayed, allowing you to browse the available products.
 
-To purchase a product, simply click on the "Add to Cart" button on the product page. You can view your cart by clicking on the shopping cart icon in the top right corner of the screen.
+To purchase a product, simply click on the "Add to Cart" button on the product page. You can view your cart by clicking on proceed to cart button in the top right corner of the screen.
 
 Development
 This application was built using React, and uses the following third-party libraries:
