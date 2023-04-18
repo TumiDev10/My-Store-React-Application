@@ -148,7 +148,7 @@
 
 .cart-item-quantity {
   font-size: 14px;
-  /* font-weight:  */
+
 }
 
 .was {
@@ -167,6 +167,10 @@
   color: green;
 }
 
-.navbar-brand{
- 
+.Currency{
+  font-size: large;
+}
+
+.h6, h6 {
+  font-size: x-large;
 }
