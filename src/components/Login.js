@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch, useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import './Login.css'; // import your custom styles
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -11,7 +11,6 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // TODO: Add login logic here
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find((u) => u.email === email && u.password === password);
     if (user) {
@@ -22,10 +21,9 @@ function Login() {
       alert('Invalid email or password');
     }
   };
-  
 
   return (
-    <div className="form-container"> {/* Add a container div */}
+    <div className="form-container">
       <h1>Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -41,7 +39,7 @@ function Login() {
         <Button variant="primary" type="submit">
           Login
         </Button>
-        <p>Don't have an account? <Link to="/Signup">Sign up</Link></p>
+        <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       </Form>
     </div>
   );
@@ -56,11 +54,13 @@ function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // TODO: Add registration logic here
+    const user = { email, password };
+    localStorage.setItem('users', JSON.stringify([user]));
     navigate('/login');
   };
 
   return (
-    <div className="form-container"> {/* Add a container div */}
+    <div className="form-container">
       <h1>Sign up</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
