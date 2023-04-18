@@ -5,7 +5,7 @@ function Cart({ cart, handleRemoveFromCart }) {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
-  
+  const [currencySymbol, setCurrencySymbol] = useState('$'); // default currency is USD
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,9 +30,23 @@ function Cart({ cart, handleRemoveFromCart }) {
     return acc;
   }, []);
 
+  const handleCurrencyChange = (event) => {
+    setCurrencySymbol(event.target.value);
+  };
+
   return (
     <div className="cart-container">
       <h2>Cart</h2>
+      <div className="currency-selector">
+        <label htmlFor="currency">Select currency:</label>
+        <select id="currency" value={currencySymbol} onChange={handleCurrencyChange}>
+          <option value="$">USD</option>
+          <option value="€">EUR</option>
+          <option value="¥">JPY</option>
+          <option value="₹">INR</option>
+          <option value="R">ZAR</option>
+        </select>
+      </div>
       {filteredCart.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
@@ -51,9 +65,9 @@ function Cart({ cart, handleRemoveFromCart }) {
               {filteredCart.map((item) => (
                 <tr key={item.id}>
                   <td>{item.title}</td>
-                  <td>{(item.price * item.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                  <td>{currencySymbol}{(item.price * item.quantity).toLocaleString()}</td>
                   <td>{item.quantity}</td>
-                  <td>{(item.price * item.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                  <td>{currencySymbol}{(item.price * item.quantity).toLocaleString()}</td>
                   {/* <td>
                     <button onClick={() => handleRemove(item.id)}>Remove</button>
                     
@@ -70,6 +84,7 @@ function Cart({ cart, handleRemoveFromCart }) {
               <label htmlFor="address">Address:</label>
               <input type="text" id="address" value={address} onChange={(event) => setAddress(event.target.value)} required />
               <label htmlFor="email">Email:</label>
+
               <input type="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
               <button type="submit">Submit</button>
             </form>
