@@ -566,6 +566,9 @@ function Products() {
                 <input type="radio" value="over100" checked={selectedFilter === 'over100'} onChange={(event) => setSelectedFilter(event.target.value)} />
                 $100 to $2000
               </label>
+              <div>
+                
+              </div>
               </div>
               <div className='Currency'>
                 <h6>Select Your Currency:</h6>

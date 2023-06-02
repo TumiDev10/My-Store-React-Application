@@ -3,11 +3,14 @@ import { BrowserRouter, Link, Route, Switch, useNavigate } from 'react-router-do
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './Login.css';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,7 +29,7 @@ function Login() {
     <div className="form-container">
       <h1>Login</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        {/* <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Form.Group>
@@ -34,10 +37,10 @@ function Login() {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Form.Group>
+        </Form.Group> */}
 
-        <Button variant="primary" type="submit">
-          Login
+        <Button variant="primary" onClick={() => loginWithRedirect()}>
+        Login with Auth0
         </Button>
         <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       </Form>
@@ -50,6 +53,7 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,7 +67,7 @@ function Signup() {
     <div className="form-container">
       <h1>Sign up</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        {/* <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Form.Group>
@@ -76,10 +80,10 @@ function Signup() {
         <Form.Group className="mb-3" controlId="formConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-        </Form.Group>
+        </Form.Group> */}
 
-        <Button variant="primary" type="submit">
-          Sign up
+        <Button variant="primary" onClick={() => loginWithRedirect()}>
+        Sign up with Auth0
         </Button>
         <p>Already have an account? <Link to="/Login">Log in</Link></p>
       </Form>
@@ -87,5 +91,33 @@ function Signup() {
   );
 }
 
-export { Login, Signup };
-export default Login;
+const LogoutButton = () => {
+  const { logout, isAuthenticated } = useAuth0();
+  
+
+  const buttonStyle = {
+    backgroundColor: 'red',
+    color: 'white',
+    fontWeight: 'bold',
+    // Add more styles as needed
+  };
+
+  return isAuthenticated ? (
+    <div className="form-container">
+      <h1>Logout</h1>
+      <Form >
+    
+    <Button variant="primary" onClick={() => logout({ returnTo: window.location.origin })}>
+        Logout
+        </Button>
+    </Form>
+    </div>
+  ) : null;
+};
+
+
+
+export { Login, Signup, LogoutButton };
+export default {Login, LogoutButton};
+
+
